@@ -70,6 +70,15 @@ public class Application {
 }
 ```
 
+## 更新到 graylog.jar
+
+> @see [Java Archive (JAR) Files](https://mp.weixin.qq.com/s/ammU9NW2zPB6cWdbFfeloA)
+
+```bash
+jar uvf graylog.jar -C <绝对路径>/gelfclient/target/classes/ .
+```
+
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
