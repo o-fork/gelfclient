@@ -36,7 +36,15 @@ import java.util.Random;
 public class GelfMessageChunkEncoder extends MessageToMessageEncoder<ByteBuf> {
     private static final Logger LOG = LoggerFactory.getLogger(GelfMessageChunkEncoder.class);
     private static final int MAX_CHUNKS = 128;
-    private static final int MAX_CHUNK_SIZE = 1420;
+    /**
+     * Kubernetes 下默认网卡 MTU 是 1440
+     * 官方原始 CHUNK 大小是 1420
+     * 加上 GELF 协议头（2 + 8 + 1 + 1 = 12），UDP Payload = 1420 + 12 = 1432
+     * 加上 IP 协议头，最小（不算 Option）按照 20 各字节算， 1432 + 20 = 1452，大于 1440，存在 IP 层分片的情况
+     *
+     * 1024 + 12 + 20 (+ 10) = 1066
+     */
+    private static final int MAX_CHUNK_SIZE = 1024;
     private static final int MAX_MESSAGE_SIZE = (MAX_CHUNKS * MAX_CHUNK_SIZE);
     private static final byte[] CHUNK_MAGIC_BYTES = new byte[]{0x1e, 0x0f};
     private final byte[] machineIdentifier = new byte[4];
