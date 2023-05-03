@@ -73,8 +73,15 @@ public class Application {
 ## 更新到 graylog.jar
 
 > @see [Java Archive (JAR) Files](https://mp.weixin.qq.com/s/ammU9NW2zPB6cWdbFfeloA)
+> - [graylog2-server/pom.xml at 4.3.0 · Graylog2/graylog2-server · GitHub](https://github.com/Graylog2/graylog2-server/blob/4.3.0/distribution/pom.xml)
+> - [graylog2-server/GelfOutput.java at 4.3.0 · Graylog2/graylog2-server · GitHub](https://github.com/Graylog2/graylog2-server/blob/4.3.0/graylog2-server/src/main/java/org/graylog2/outputs/GelfOutput.java)
+> - [UDP 分包与组包_董哥的黑板报的博客](https://blog.csdn.net/qq_41453285/article/details/107236053)
 
 ```bash
+# 编译项目
+mvn clean compile
+
+# 替换 graylog.jar 中的文件
 jar uvf graylog.jar -C <绝对路径>/gelfclient/target/classes/ .
 ```
 
